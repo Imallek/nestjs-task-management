@@ -23,16 +23,10 @@ export class TasksController {
         return this.taskService.getTaskById(id);
     }
 
-    // @Post()
-    // createTask(@Body() cre ateTaskDto: CreateTaskDto): Task {
-    //     // NestJS allows us to retrieve the data with 2 annotations
-    //     // To get all the body we can use @Body() 
-
-    //     // Second way to do this is to get the values individually as @Body('title') 
-    //     // In this was NestJS is going to retieve the individual value from the body
-
-    //     return this.taskService.createTask(createTaskDto);
-    // }
+    @Post()
+    createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
+        return this.taskService.createTask(createTaskDto);
+    }
 
     // @Delete('/:id')
     // deleteTask(@Param('id') id:string){

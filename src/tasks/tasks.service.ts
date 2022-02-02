@@ -42,19 +42,16 @@ export class TasksService {
         return found;
     }
 
-    // createTask(createTaskDto:CreateTaskDto):Task{
-    //     const {title, description} = createTaskDto;
-
-    //     const task: Task = {
-    //         id: uuid(),
-    //         title,
-    //         description,
-    //         status: TaskStatus.OPEN
-    //     }
-
-    //     this.tasks.push(task);
-    //     return task;
-    // }
+    async createTask(createTaskDto:CreateTaskDto): Promise<Task>{
+        const {title, description} = createTaskDto;
+        const task = this.tasksRepository.create({
+            title,
+            description,
+            status: TaskStatus.OPEN
+        });
+        await this.tasksRepository.save(task); 
+        return task;
+    }
 
     // deleteTask(id:string):void{
     //     const found = this.getTaskById(id);
