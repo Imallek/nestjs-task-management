@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Patch, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Patch, Query, NotFoundException } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { Task, TaskStatus } from './task.model';
@@ -18,7 +18,15 @@ export class TasksController {
   
     @Get('/:id')
     getTaskById(@Param('id') id: string): Task {
-        return this.taskService.getTaskById(id);
+        const found =  this.taskService.getTaskById(id);
+        if(!found){
+            // This exception is bubbled up in NestJs internals and then handled there
+            // If you are not handling it explicitly (in controller or anything) then NestJs internals would get this exception and map 
+            // it to the appropriate HTTP code (i-e 404 in this case) 
+            // There are many other exceptions that you can throw as well
+            throw new NotFoundException(`Task with ID '${id}' not found`);
+        }
+        return found;
     }
 
     @Post()
