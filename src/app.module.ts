@@ -11,7 +11,7 @@ import { TasksModule } from './tasks/tasks.module';
     username:"postgres",
     password:"postgres",
     database:"task-management",
-    autoLoadEntities:true,
+    autoLoadEntities:true,      // This will load the .entity.ts files, Stick to this filename convention for entity files
     synchronize: true
 
   })
