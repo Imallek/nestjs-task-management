@@ -8,6 +8,9 @@ async function bootstrap() {
   const logger = new Logger();
   const app = await NestFactory.create(AppModule);
 
+  // Enabling all cors for now, ONLY ENABLE AUTHORIZED CORS FOR PRODUCTION
+  app.enableCors();
+
   /**
    * We are telling NestJs that whenever you encounter validation decorator
    * e.g @IsNotEmpty() It will know to execute the validation pipes
